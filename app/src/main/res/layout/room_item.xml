@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="95dp">
+
+    <ImageView
+        android:id="@+id/room_item_image"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:src="@drawable/test"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@+id/room_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="曼谷塔瓦娜酒店"/>
+
+        <TextView
+            android:id="@+id/room_item_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3人间"
+            android:layout_below="@id/room_item_title"/>
+
+        <TextView
+            android:id="@+id/room_item_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="402室"
+            android:layout_toRightOf="@id/room_item_type"
+            android:layout_toEndOf="@id/room_item_type"
+            android:layout_alignBottom="@id/room_item_type"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:id="@+id/room_item_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="4.6分"
+            android:textSize="25sp"
+            android:textColor="#1269e2"
+            android:layout_below="@id/room_item_type"/>
+
+        <TextView
+            android:id="@+id/room_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/room_item_yuan"
+            android:layout_alignBottom="@+id/room_item_yuan"
+            tools:text="540"
+            android:textSize="35sp"
+            android:textColor="#d7255a"/>
+
+        <TextView
+            android:id="@+id/room_item_yuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
