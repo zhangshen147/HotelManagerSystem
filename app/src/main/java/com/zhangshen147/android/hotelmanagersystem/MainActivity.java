@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity
     private Toolbar mToolBar;
     private int mCurrentFragmentIs;
 
-    // 实现回调
+    // 实现回调，实现通信
     @Override
     public void onFragmentInteraction(Uri uri) {
-        Toast.makeText(this,"onFragmentInteraction",Toast.LENGTH_SHORT);
+        Toast.makeText(this,"onFragmentInteraction",Toast.LENGTH_SHORT).show();
     }
 
     // 继承自FragmentPagerAdapter
