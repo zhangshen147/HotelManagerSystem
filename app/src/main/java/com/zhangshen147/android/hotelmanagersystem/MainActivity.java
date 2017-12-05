@@ -1,95 +1,89 @@
 package com.zhangshen147.android.hotelmanagersystem;
 
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toolbar;
+import android.widget.Toast;
+
+import com.zhangshen147.android.hotelmanagersystem.fragment.DetailFragment;
+import com.zhangshen147.android.hotelmanagersystem.fragment.OrderFragment;
+import com.zhangshen147.android.hotelmanagersystem.fragment.RoomFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements RoomFragment.OnFragmentInteractionListener,
+        DetailFragment.OnFragmentInteractionListener,
+        OrderFragment.OnFragmentInteractionListener{
 
-    private List<View> mViewList = new ArrayList<View>();
+    public static final String TAG = "MainActivity";
+    private List<Fragment> mFragmentList = new ArrayList<Fragment>();
     private ViewPager mViewPager;
-    private LayoutInflater mInflater;
 
-    private LinearLayout mRoomLayout;
-    private LinearLayout mDetailLayout;
-    private LinearLayout mOrderLayout;
+    private Toolbar mToolBar;
+    private int mCurrentFragmentIs;
 
-    private TextView mTitleView;
-    private LinearLayout mCurrentLayout;
+    // 实现回调
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Toast.makeText(this,"onFragmentInteraction",Toast.LENGTH_SHORT);
+    }
 
-    //实现ViewPager的适配器MyPagerAdapter类
-    class MyPagerAdapter extends PagerAdapter{
+    // 继承自FragmentPagerAdapter
+    class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+        List<Fragment> list;
 
-        private List<View> list;
-
-        public MyPagerAdapter(List<View> list){
+        public MyFragmentPagerAdapter(FragmentManager manager,List<Fragment> list){
+            super(manager);
             this.list = list;
         }
 
         @Override
-        public int getCount() {
-            if (list != null && list.size()>0){
-                return list.size();
-            }else {
-                return 0;
+        public Fragment getItem(int position) {
+            Log.v(TAG,"getItem"+position);
+            return list.get(position);
             }
-        }
 
         @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
+        public int getCount() {
+            return list.size();
         }
 
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(mViewList.get(position),0);
-            return mViewList.get(position);
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(mViewList.get(position));
-        }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //去掉标题栏,将ActionBar替换为ToolBar
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_in_mainactivity);
-        if (Build.VERSION.SDK_INT >= 21){
-            setActionBar(toolbar);
-        }
         setContentView(R.layout.activity_main);
 
-        //引用组件
-        mRoomLayout = (LinearLayout)findViewById(R.id.nav_item1_in_mainactivity);
-        mRoomLayout = (LinearLayout)findViewById(R.id.nav_item2_in_mainactivity);
-        mRoomLayout = (LinearLayout)findViewById(R.id.nav_item3_in_mainactivity);
-        mTitleView = (TextView)findViewById(R.id.title_view_in_mainactivity);
+        // 引用成员变量
+        mToolBar = (Toolbar)findViewById(R.id.toolbar_in_mainactivity);
         mViewPager = (ViewPager)findViewById(R.id.view_pager_in_mainactivity);
-        mInflater = LayoutInflater.from(this);
+        mCurrentFragmentIs = 0;
 
-        //设置默认布局为mRoomLayout
-        mCurrentLayout = mRoomLayout;
-        mCurrentLayout.setSelected(true);
-        mTitleView.setText("明细");
+        // 如果运行在 5.0 版本以上，则设置UI全屏，状态栏透明
+        if (Build.VERSION.SDK_INT >= 21){
+            View vecor = getWindow().getDecorView();
+            vecor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
 
-        //mViewPager添加滑动监听
+        // TODO 设置mToolBar
+
+        // mViewPager添加滑动监听
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -98,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                changeTab(position);
+                mCurrentFragmentIs = position;
             }
 
             @Override
@@ -108,21 +102,56 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        //初始化mViewList
-        View tab1 = mInflater.inflate(R.layout.fragment_room,null);
-        View tab2 = mInflater.inflate(R.layout.fragment_detail,null);
-        View tab3 = mInflater.inflate(R.layout.fragment_order,null);
-        mViewList.add(tab1);
-        mViewList.add(tab2);
-        mViewList.add(tab3);
+        // 以mFragmentList为参数实现适配器，并添加给mViewPager
+        RoomFragment f1 = RoomFragment.newInstance();
+        DetailFragment f2 = DetailFragment.newInstance();
+        OrderFragment f3 = OrderFragment.newInstance();
 
-        //以mViewList为参数实现适配器，并添加给mViewPager
-        PagerAdapter adapter = new MainActivity.MyPagerAdapter(mViewList);
+        mFragmentList.add(f1);
+        mFragmentList.add(f2);
+        mFragmentList.add(f3);
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fm,mFragmentList);
         mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(0);
+        Log.v(TAG,"onCreate()");
     }
 
-    //从底部导航栏切换view
-    private void changeTab(int position){
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.v(TAG,"onStart()");
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v(TAG,"onResume()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.v(TAG,"onPause()");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.v(TAG,"onSaveInstanceState()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.v(TAG,"onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.v(TAG,"onDestory()");
+    }
+
 }

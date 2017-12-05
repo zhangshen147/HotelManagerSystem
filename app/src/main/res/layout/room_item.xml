@@ -22,7 +22,7 @@
             android:id="@+id/room_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="曼谷塔瓦娜酒店"/>
+            tools:text="406房间"/>
 
         <TextView
             android:id="@+id/room_item_type"
@@ -32,10 +32,10 @@
             android:layout_below="@id/room_item_title"/>
 
         <TextView
-            android:id="@+id/room_item_location"
+            android:id="@+id/room_item_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="402室"
+            tools:text="满"
             android:layout_toRightOf="@id/room_item_type"
             android:layout_toEndOf="@id/room_item_type"
             android:layout_alignBottom="@id/room_item_type"
