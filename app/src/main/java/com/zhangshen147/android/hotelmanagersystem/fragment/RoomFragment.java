@@ -114,7 +114,7 @@ public class RoomFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LinearLayout v = (LinearLayout) inflater.inflate(R.layout.fragment_room,null);
+        LinearLayout v = (LinearLayout) inflater.inflate(R.layout.fragment_room,container,false);
 
         // 现在getActivity不能获取绑定的activity，findView不能获取根视图，所以只能在onCreateView里面初始化mRecyclerView
         mRecyclerView = v.findViewById(R.id.recycler_view_in_roomfragment);
@@ -127,6 +127,8 @@ public class RoomFragment extends Fragment {
         mRecyclerView.setLayoutManager(manager);
 
         // 设置适配器
+        List<Room> list = getList();
+        mRoomList = list;
         mRecyclerAdapter = new RecyclerAdapter(mRoomList);
         mRecyclerView.setAdapter(mRecyclerAdapter);
 
@@ -161,8 +163,7 @@ public class RoomFragment extends Fragment {
             }
         });
 
-        List<Room> list = getList();
-        mRoomList = list;
+        mRecyclerAdapter.notifyDataSetChanged();
         Log.v(TAG,"onCreateView()");
         return v;
     }

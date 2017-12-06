@@ -50,7 +50,7 @@ public class OrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_order,null);
+        View v = inflater.inflate(R.layout.fragment_order,container,false);
         Log.v(TAG,"onCreateView()");
         return v;
     }

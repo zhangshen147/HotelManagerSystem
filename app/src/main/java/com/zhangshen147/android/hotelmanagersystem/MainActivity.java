@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -60,6 +61,11 @@ public class MainActivity extends AppCompatActivity
             return list.size();
         }
 
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Log.v(TAG,"instantiateItem()"+container.toString()+position);
+            return super.instantiateItem(container, position);
+        }
     };
 
 
