@@ -30,50 +30,51 @@ public class RoomFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerAdapter mRecyclerAdapter;
 
-    private LayoutInflater mLayoutInflater;
+    private OnFragmentInteractionListener mListener;
 
     // recyclerView的数据集
     private List<Room> mRoomList = new ArrayList<Room>();
 
-    private OnFragmentInteractionListener mListener;
-
+    /**
+     * activity恢复状态时需要
+     */
     public RoomFragment(){
-        // Required empty public constructor
+
     }
 
     // 推荐使用这种方式new一个fragment实例
     public static RoomFragment newInstance(){
-        RoomFragment f = new RoomFragment();
+        RoomFragment fragment = new RoomFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
         Log.v(TAG,"newInstance()");
-        return f;
+        return fragment;
     }
 
     // 继承自ViewHolder类
-    class RecyclerHolder extends RecyclerView.ViewHolder {
+    private class RecyclerHolder extends RecyclerView.ViewHolder {
         private LinearLayout self;
 
         private ImageView image;
-        private TextView title;
-        private TextView type;
-        private TextView status;
-        private TextView star;
+        private TextView name;
+        private TextView content;
         private TextView price;
+        private TextView status;
 
         public RecyclerHolder(View v){
             super(v);
             self = (LinearLayout) v;
             image = (ImageView) v.findViewById(R.id.room_item_image);
-            title = (TextView) v.findViewById(R.id.room_item_title);
-            type = (TextView) v.findViewById(R.id.room_item_type);
-            status = (TextView) v.findViewById(R.id.room_item_status);
-            star = (TextView) v.findViewById(R.id.room_item_star);
+            name = (TextView) v.findViewById(R.id.room_item_name);
+            content = (TextView) v.findViewById(R.id.room_item_content);
             price = (TextView) v.findViewById(R.id.room_item_price);
+            status = (TextView) v.findViewById(R.id.room_item_status);
         }
 
     };
 
     // 继承自Adapter类
-    class RecyclerAdapter extends RecyclerView.Adapter<RecyclerHolder>{
+    private class RecyclerAdapter extends RecyclerView.Adapter<RecyclerHolder>{
         private List<Room> list;
 
         public RecyclerAdapter(List<Room> list){
@@ -82,19 +83,19 @@ public class RoomFragment extends Fragment {
 
         @Override
         public RecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LinearLayout view = (LinearLayout) mLayoutInflater.inflate(R.layout.room_item,parent,false);
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            LinearLayout view = (LinearLayout) layoutInflater.inflate(R.layout.room_item,parent,false);
             RecyclerHolder holder = new RecyclerHolder(view);
             return holder;
         }
 
         @Override
         public void onBindViewHolder(RecyclerHolder holder, int position) {
-            holder.title.setText(list.get(position).getType());
-            holder.image.setImageResource(R.drawable.test);
-            holder.price.setText(list.get(position).getPrice());
-            holder.star.setText(list.get(position).getStar());
-            holder.status.setText(list.get(position).getLocation());
-            holder.type.setText(list.get(position).getType());
+            holder.image.setImageResource(R.drawable.room_item);
+            holder.name.setText(list.get(position).data.name);
+            holder.content.setText(list.get(position).data.content);
+            holder.price.setText(list.get(position).data.price);
+            holder.status.setText(list.get(position).data.status);
         }
 
         @Override
@@ -119,11 +120,8 @@ public class RoomFragment extends Fragment {
         // 现在getActivity不能获取绑定的activity，findView不能获取根视图，所以只能在onCreateView里面初始化mRecyclerView
         mRecyclerView = v.findViewById(R.id.recycler_view_in_roomfragment);
 
-        // 初始化全局组件
-        initQuote();
-
-        // 设置垂直的布局管理器
-        LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        // 设置垂直形的布局管理器
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(manager);
 
         // 设置适配器
@@ -168,16 +166,10 @@ public class RoomFragment extends Fragment {
         return v;
     }
 
-    /**
-     * 初始化全局组件
-     */
-    private void initQuote() {
-        mLayoutInflater = LayoutInflater.from(getActivity());
-    }
-
     private List<Room> getList() {
         //TODO 从数据库或者http服务器上获取list对象
-        Room room = new Room("潘阿姨","双刃剑","堕落街","3.9分","150");
+        Room.RoomData roomData = new Room.RoomData("四人间，风景优美，服务多多","s05","4","A102","750","空闲");
+        Room room = new Room(roomData);
         List<Room> list = new ArrayList<Room>();
         for (int i = 0; i < 20; i++) {
             list.add(room);

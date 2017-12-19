@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<litepal>
+    <dbname value="data"></dbname>
+
+    <version version="1"></version>
+
+    <list>
+        <mapping class="com.zhangshen147.android.hotelmanagersystem.json.Order"></mapping>
+        <mapping class="com.zhangshen147.android.hotelmanagersystem.json.Room"></mapping>
+    </list>
+</litepal>

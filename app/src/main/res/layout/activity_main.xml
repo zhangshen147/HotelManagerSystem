@@ -1,80 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.zhangshen147.android.hotelmanagersystem.MainActivity">
+    android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_in_mainactivity"
+    <!--侧滑菜单在主布局之上-->
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_in_mainactivity"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
+        <!--主布局-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
+            android:clipToPadding="false"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            tools:context="com.zhangshen147.android.hotelmanagersystem.MainActivity">
 
-            <ImageButton
-                android:id="@+id/drawer_button_in_toolbar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="fitStart"
-                android:src="@drawable/drawer"
-                android:background="@color/colorPrimary"
-                android:layout_margin="12dp"/>
+            <!--ToolBar-->
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_in_mainactivity"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary">
 
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="0dp">
-
-                <ImageView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/room" />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/detail" />
+                    <ImageButton
+                        android:id="@+id/drawer_button_in_toolbar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@color/colorPrimary"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/drawer" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/order"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_weight="1">
 
-            </LinearLayout>
+                        <ImageView
+                            android:id="@+id/iv_my_in_mainactivity"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/my" />
 
-            <ImageButton
-                android:id="@+id/refresh_button_in_toolbar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="fitStart"
-                android:layout_gravity="right"
-                android:src="@drawable/refresh"
-                android:background="@color/colorPrimary"
-                android:layout_margin="12dp"/>
+                        <ImageView
+                            android:id="@+id/iv_order_in_mainactivity"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/order" />
+
+                        <ImageView
+                            android:id="@+id/iv_room_in_mainactivity"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/room" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/refresh_button_in_toolbar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="right"
+                        android:layout_margin="12dp"
+                        android:background="@color/colorPrimary"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/search" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager_in_mainactivity"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+            </android.support.v4.view.ViewPager>
 
         </LinearLayout>
 
+        <!--侧滑菜单-->
+        <LinearLayout
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="left"
+            android:gravity="start"
+            android:background="#ffffff"
+            android:divider="@android:color/transparent">
 
-    </android.support.v7.widget.Toolbar>
+            <com.zhangshen147.android.hotelmanagersystem.view.RoundAppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="50dp"
+                android:src="@drawable/tutu">
+            </com.zhangshen147.android.hotelmanagersystem.view.RoundAppCompatImageView>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager_in_mainactivity"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            <ListView
+                android:id="@+id/list_view_in_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </android.support.v4.view.ViewPager>
+            </ListView>
+
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>
+

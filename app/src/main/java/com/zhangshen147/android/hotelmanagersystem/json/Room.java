@@ -5,57 +5,33 @@ package com.zhangshen147.android.hotelmanagersystem.json;
  */
 
 public class Room {
-    private String title;
-    private String type;
-    private String location;
-    private String star;
-    private String price;
+    public String msg;
+    public String code;
+    public RoomData data;
 
-    public Room(String title, String type, String location, String star, String price) {
-        this.title = title;
-        this.type = type;
-        this.location = location;
-        this.star = star;
-        this.price = price;
+    public Room(RoomData data) {
+        this.data = data;
+
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public static class RoomData {
+        public String content;
+        public String id;
+        public String liveCount;
+        public String name;
+        public String price;
+        // "0" 空闲
+        // "1" 已预定
+        // "2" 入住
+        public String status;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getStar() {
-        return star;
-    }
-
-    public void setStar(String star) {
-        this.star = star;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
+        public RoomData(String content, String id, String liveCount, String name, String price, String status) {
+            this.content = content;
+            this.id = id;
+            this.liveCount = liveCount;
+            this.name = name;
+            this.price = price;
+            this.status = status;
+        }
     }
 }

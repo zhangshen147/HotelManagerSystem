@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_item_accept"
+        android:title="接下"
+        android:visible="true">
+    </item>
+    <item
+        android:id="@+id/menu_item_refuse"
+        android:title="拒绝"
+        android:visible="true">
+    </item>
+    <item
+        android:id="@+id/menu_item_ignore"
+        android:title="忽略"
+        android:visible="true">
+    </item>
+
+</menu>

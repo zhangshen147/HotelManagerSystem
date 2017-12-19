@@ -12,34 +12,25 @@ import android.view.ViewGroup;
 
 import com.zhangshen147.android.hotelmanagersystem.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DetailFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DetailFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    public static final String TAG = "DetailFragment";
+public class MyFragment extends Fragment {
+
+    public static final String TAG = "MyFragment";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // 这个例子不需要从activity传递参数给fragment
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public DetailFragment() {
+    public MyFragment() {
         // Required empty public constructor
     }
 
-    // 推荐用这种方式new一个fragment实例
-    public static DetailFragment newInstance() {
-        DetailFragment fragment = new DetailFragment();
+    //推荐用这种方式new一个fragment实例
+    public static MyFragment newInstance() {
+        MyFragment fragment = new MyFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         Log.v(TAG,"newInstance()");
@@ -59,7 +50,7 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_detail,container,false);
+        View v = inflater.inflate(R.layout.fragment_my,container,false);
         Log.v(TAG,"onCreateView()");
         return v;
     }
@@ -132,9 +123,8 @@ public class DetailFragment extends Fragment {
         Log.v(TAG,"onDetach()");
     }
 
-
     public interface OnFragmentInteractionListener {
-        // 回调方法，与fragment关联的activity实现
+        // 回调方法，与之关联的activity实现
         void onFragmentInteraction(Uri uri);
     }
 }

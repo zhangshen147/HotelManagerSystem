@@ -4,69 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="95dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
     <ImageView
         android:id="@+id/room_item_image"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:src="@drawable/test"/>
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/room_item"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="90dp"
         android:layout_margin="5dp">
 
         <TextView
-            android:id="@+id/room_item_title"
+            android:id="@+id/room_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="406房间"/>
+            android:textColor="#000000"
+            tools:text="A515"/>
 
         <TextView
-            android:id="@+id/room_item_type"
+            android:id="@+id/room_item_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3人间"
-            android:layout_below="@id/room_item_title"/>
-
-        <TextView
-            android:id="@+id/room_item_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="满"
-            android:layout_toRightOf="@id/room_item_type"
-            android:layout_toEndOf="@id/room_item_type"
-            android:layout_alignBottom="@id/room_item_type"
-            android:layout_marginLeft="30dp"/>
-
-        <TextView
-            android:id="@+id/room_item_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="4.6分"
-            android:textSize="25sp"
+            tools:text="四人间，风景优美"
+            android:textSize="15sp"
             android:textColor="#1269e2"
-            android:layout_below="@id/room_item_type"/>
+            android:layout_below="@id/room_item_name"/>
 
         <TextView
             android:id="@+id/room_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/room_item_yuan"
-            android:layout_alignBottom="@+id/room_item_yuan"
-            tools:text="540"
-            android:textSize="35sp"
-            android:textColor="#d7255a"/>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            tools:text="440"
+            android:textSize="25sp"
+            android:textColor="#e277a7"/>
 
         <TextView
             android:id="@+id/room_item_yuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="元"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"/>
+            android:layout_toRightOf="@id/room_item_price"
+            android:layout_alignBottom="@id/room_item_price"/>
+
+        <TextView
+            android:id="@+id/room_item_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="空闲"
+            android:layout_toRightOf="@id/room_item_price"
+            android:layout_toEndOf="@id/room_item_price"
+            android:layout_alignBottom="@id/room_item_price"
+            android:layout_marginLeft="40dp"/>
 
     </RelativeLayout>
 
